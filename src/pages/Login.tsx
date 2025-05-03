@@ -24,7 +24,7 @@ const Login: React.FC = () => {
       localStorage.setItem('userEmail', response.data.email);
       localStorage.setItem('userDob', response.data.dob);
       localStorage.setItem('userMobile', response.data.mobile);
-      localStorage.setItem('userPhoto', response.data.photo);  // Save the full photo URL
+      localStorage.setItem('userPhoto', response.data.photo);  // Save the full photo URL commit 1
         alert('Login successful!');
         navigate('/dashboard');
         window.location.reload(); // 🔥 Force reload to update Header
