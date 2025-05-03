@@ -70,7 +70,7 @@ const Dashboard: React.FC = () => {
 
       {/* Profile Photo */}
       <img
-    src={profilePhoto || '/defaultProfile.png'}  // Default if no profile photo is found
+    src={profilePhoto || '/defaultProfile.png'}  // Default if no profile photo is found Commit 1
     alt="Profile"
     style={{
         width: '120px',
