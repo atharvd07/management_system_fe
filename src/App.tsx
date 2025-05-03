@@ -1,0 +1,23 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Signup from './pages/Signup'; // Import your Signup component
+import Login from './pages/Login'; // Import your Login component
+import Header from './pages/Header'; // Import Header component
+import Footer from './pages/Footer'; // Import Footer component
+import Dashboard from './pages/Dashboard'; // Import Footer component
+
+function App() {
+  return (
+    <Router>
+      <Header /> {/* Only add Header here, it will show for all pages */}
+      <Routes>
+        <Route path="/signup" element={<Signup />} /> {/* Default route for Signup */}
+        <Route path="/login" element={<Login />} /> {/* Login route */}
+        <Route path="/dashboard" element={<Dashboard />} /> {/* Add Dashboard route */}
+      </Routes>
+      <Footer /> {/* Add Footer here */}
+    </Router>
+  );
+}
+
+export default App;
