@@ -11,7 +11,8 @@ function App() {
     <Router>
       <Header /> {/* Only add Header here, it will show for all pages */}
       <Routes>
-        <Route path="/signup" element={<Signup />} /> {/* Default route for Signup */}
+        <Route path="/" element={<Login />} /> {/* Default route for Page load */}
+        <Route path="/signup" element={<Signup />} /> {/* Signup */}
         <Route path="/login" element={<Login />} /> {/* Login route */}
         <Route path="/dashboard" element={<Dashboard />} /> {/* Add Dashboard route */}
       </Routes>
