@@ -18,6 +18,7 @@ const Login: React.FC = () => {
       });
 
       if (response.status === 200) {
+        localStorage.setItem('token', response.data.token);
         localStorage.setItem('isLoggedIn', 'true'); // Save login status
 
       localStorage.setItem('userName', response.data.name);
