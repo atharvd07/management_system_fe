@@ -8,6 +8,8 @@ const Header: React.FC = () => {
 
   const [userName, setUserName] =
     useState<string | null>(null);
+    const [userId, setUserId] =
+    useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -26,6 +28,10 @@ const Header: React.FC = () => {
 
       setUserName(
         localStorage.getItem('userName')
+      );
+
+      setUserId(
+        localStorage.getItem('userId')
       );
 
     } else {

@@ -20,12 +20,13 @@ const Login: React.FC = () => {
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('isLoggedIn', 'true'); // Save login status
-
       localStorage.setItem('userName', response.data.name);
+      localStorage.setItem('userId', response.data.id);
       localStorage.setItem('userEmail', response.data.email);
       localStorage.setItem('userDob', response.data.dob);
       localStorage.setItem('userMobile', response.data.mobile);
       localStorage.setItem('userPhoto', response.data.photo);  // Save the full photo URL commit 1
+      console.log(response.data);
         alert('Login successful!');
         navigate('/dashboard');
         window.location.reload(); // 🔥 Force reload to update Header

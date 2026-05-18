@@ -1,57 +1,99 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AppFeedback from './app_components/app_feedback';
 
 const Dashboard: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState<string | null>(null);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
-  const [userDob, setUserDob] = useState<string | null>(null);
-  const [userMobile, setUserMobile] = useState<string | null>(null);
-  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
+  const [isLoggedIn, setIsLoggedIn] =
+    useState(false);
+
+  const [userName, setUserName] =
+    useState<string | null>(null);
+
+  const [userEmail, setUserEmail] =
+    useState<string | null>(null);
+
+  const [userDob, setUserDob] =
+    useState<string | null>(null);
+
+  const [userMobile, setUserMobile] =
+    useState<string | null>(null);
+
+  const [profilePhoto, setProfilePhoto] =
+    useState<string | null>(null);
 
   const [activeSection, setActiveSection] =
     useState<string>('home');
 
+  const [activeApplicationTab,
+    setActiveApplicationTab] =
+    useState<string>('feedback');
+
   useEffect(() => {
 
     // Check JWT token
-    const token = localStorage.getItem('token');
+    const token =
+      localStorage.getItem('token');
 
     if (!token) {
+
       navigate('/login');
       return;
     }
 
     // Check login status
     const loggedIn =
-      localStorage.getItem('isLoggedIn') === 'true';
+      localStorage.getItem(
+        'isLoggedIn'
+      ) === 'true';
 
     setIsLoggedIn(loggedIn);
 
     // Fetch user data
     if (loggedIn) {
 
-      setUserName(localStorage.getItem('userName'));
+      setUserName(
+        localStorage.getItem(
+          'userName'
+        )
+      );
 
-      setUserEmail(localStorage.getItem('userEmail'));
+      setUserEmail(
+        localStorage.getItem(
+          'userEmail'
+        )
+      );
 
-      setUserDob(localStorage.getItem('userDob'));
+      setUserDob(
+        localStorage.getItem(
+          'userDob'
+        )
+      );
 
-      setUserMobile(localStorage.getItem('userMobile'));
+      setUserMobile(
+        localStorage.getItem(
+          'userMobile'
+        )
+      );
 
       const photoFromStorage =
-        localStorage.getItem('userPhoto');
+        localStorage.getItem(
+          'userPhoto'
+        );
 
       if (photoFromStorage) {
 
-        setProfilePhoto(photoFromStorage);
+        setProfilePhoto(
+          photoFromStorage
+        );
 
       } else {
 
-        setProfilePhoto('/defaultProfile.png');
+        setProfilePhoto(
+          '/defaultProfile.png'
+        );
       }
     }
 
@@ -59,11 +101,14 @@ const Dashboard: React.FC = () => {
 
   const handleSaveProfile = () => {
 
-    alert('Profile updated successfully!');
+    alert(
+      'Profile updated successfully!'
+    );
   };
 
   const handlePhotoChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event:
+      React.ChangeEvent<HTMLInputElement>
   ) => {
 
     const file =
@@ -73,7 +118,8 @@ const Dashboard: React.FC = () => {
 
     if (file) {
 
-      const reader = new FileReader();
+      const reader =
+        new FileReader();
 
       reader.onloadend = () => {
 
@@ -82,7 +128,9 @@ const Dashboard: React.FC = () => {
           reader.result as string
         );
 
-        setProfilePhoto(reader.result as string);
+        setProfilePhoto(
+          reader.result as string
+        );
       };
 
       reader.readAsDataURL(file);
@@ -93,7 +141,8 @@ const Dashboard: React.FC = () => {
 
     return (
       <p>
-        You need to be logged in to view the dashboard.
+        You need to be logged in
+        to view the dashboard.
       </p>
     );
   }
@@ -101,9 +150,11 @@ const Dashboard: React.FC = () => {
   return (
 
     <div
-      className="d-flex"
-      style={{ height: '90vh' }}
-    >
+  className="d-flex"
+  style={{
+    height: '90vh'
+  }}
+>
 
       {/* Sidebar */}
       <div
@@ -115,14 +166,16 @@ const Dashboard: React.FC = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '20px',
-          borderRight: '1px solid #ccc'
+          borderRight:
+            '1px solid #ccc'
         }}
       >
 
         {/* Profile Photo */}
         <img
           src={
-            profilePhoto || '/defaultProfile.png'
+            profilePhoto ||
+            '/defaultProfile.png'
           }
           alt="Profile"
           style={{
@@ -131,7 +184,8 @@ const Dashboard: React.FC = () => {
             borderRadius: '20%',
             objectFit: 'cover',
             marginBottom: '10px',
-            border: '2px solid #ccc',
+            border:
+              '2px solid #ccc',
           }}
         />
 
@@ -144,6 +198,7 @@ const Dashboard: React.FC = () => {
           Dashboard
         </h4>
 
+        {/* Home */}
         <div
           style={{
             fontWeight: '500',
@@ -151,12 +206,31 @@ const Dashboard: React.FC = () => {
             cursor: 'pointer'
           }}
           onClick={() =>
-            setActiveSection('documents')
+            setActiveSection(
+              'home'
+            )
+          }
+        >
+          Home
+        </div>
+
+        {/* Documents */}
+        <div
+          style={{
+            fontWeight: '500',
+            color: '#555',
+            cursor: 'pointer'
+          }}
+          onClick={() =>
+            setActiveSection(
+              'documents'
+            )
           }
         >
           Documents
         </div>
 
+        {/* Settings */}
         <div
           style={{
             fontWeight: '500',
@@ -164,12 +238,15 @@ const Dashboard: React.FC = () => {
             cursor: 'pointer'
           }}
           onClick={() =>
-            setActiveSection('settings')
+            setActiveSection(
+              'settings'
+            )
           }
         >
           Settings
         </div>
 
+        {/* All Applications */}
         <div
           style={{
             fontWeight: '500',
@@ -177,7 +254,25 @@ const Dashboard: React.FC = () => {
             cursor: 'pointer'
           }}
           onClick={() =>
-            setActiveSection('profile')
+            setActiveSection(
+              'applications'
+            )
+          }
+        >
+          All Applications
+        </div>
+
+        {/* Profile */}
+        <div
+          style={{
+            fontWeight: '500',
+            color: '#555',
+            cursor: 'pointer'
+          }}
+          onClick={() =>
+            setActiveSection(
+              'profile'
+            )
           }
         >
           Profile
@@ -187,88 +282,249 @@ const Dashboard: React.FC = () => {
 
       {/* Main Content */}
       <div
-        className="container"
-        style={{ padding: '30px' }}
-      >
+  className="container"
+  style={{
+    padding: '30px',
+    overflowY: 'auto',
+    flex: 1
+  }}
+>
 
+        {/* Home */}
         {activeSection === 'home' && (
           <>
-            <h1>Hi, {userName}!</h1>
-            <p>Email: {userEmail}</p>
+            <h1>
+              Hi, {userName}!
+            </h1>
+
+            <p>
+              Email: {userEmail}
+            </p>
           </>
         )}
 
-        {activeSection === 'documents' && (
+        {/* Documents */}
+        {activeSection ===
+          'documents' && (
           <>
-            <h2>Documents Section</h2>
-            <p>Coming soon...</p>
+            <h2>
+              Documents Section
+            </h2>
+
+            <p>
+              Coming soon...
+            </p>
           </>
         )}
 
-        {activeSection === 'settings' && (
+        {/* Settings */}
+        {activeSection ===
+          'settings' && (
           <>
-            <h2>Settings Section</h2>
-            <p>Coming soon...</p>
+            <h2>
+              Settings Section
+            </h2>
+
+            <p>
+              Coming soon...
+            </p>
           </>
         )}
 
-        {activeSection === 'profile' && (
+        {/* All Applications */}
+        {activeSection ===
+          'applications' && (
           <>
-            <h2>My Profile</h2>
 
+            <h2>
+              All Applications
+            </h2>
+
+            {/* Tabs */}
+            <div
+              className="d-flex gap-3 mb-4"
+            >
+
+              {/* Feedback Tab */}
+              <button
+                className={
+                  activeApplicationTab ===
+                  'feedback'
+                    ? 'btn btn-primary'
+                    : 'btn btn-outline-primary'
+                }
+                onClick={() =>
+                  setActiveApplicationTab(
+                    'feedback'
+                  )
+                }
+              >
+                Feedback
+              </button>
+
+              {/* Grievance Tab */}
+              <button
+                className={
+                  activeApplicationTab ===
+                  'grievance'
+                    ? 'btn btn-secondary'
+                    : 'btn btn-outline-secondary'
+                }
+                onClick={() =>
+                  setActiveApplicationTab(
+                    'grievance'
+                  )
+                }
+              >
+                Grievance
+              </button>
+
+            </div>
+
+            {/* Feedback Component */}
+            {activeApplicationTab ===
+              'feedback' && (
+              <AppFeedback />
+            )}
+
+            {/* Grievance Placeholder */}
+            {activeApplicationTab ===
+              'grievance' && (
+              <div
+                className="card p-4"
+              >
+                <h4>
+                  Grievance Form
+                </h4>
+
+                <p>
+                  Coming soon...
+                </p>
+              </div>
+            )}
+
+          </>
+        )}
+
+        {/* Profile */}
+        {activeSection ===
+          'profile' && (
+          <>
+
+            <h2>
+              My Profile
+            </h2>
+
+            {/* Upload Photo */}
             <div className="mb-3">
-              <label>Name:</label>
+
+              <label>
+                Upload Profile
+                Photo:
+              </label>
+
+              <input
+                type="file"
+                className="form-control"
+                accept="image/*"
+                onChange={
+                  handlePhotoChange
+                }
+              />
+
+            </div>
+
+            {/* Name */}
+            <div className="mb-3">
+
+              <label>
+                Name:
+              </label>
 
               <input
                 type="text"
                 className="form-control"
-                value={userName ?? ''}
+                value={
+                  userName ?? ''
+                }
                 onChange={(e) =>
-                  setUserName(e.target.value)
+                  setUserName(
+                    e.target.value
+                  )
                 }
               />
+
             </div>
 
+            {/* DOB */}
             <div className="mb-3">
-              <label>Date of Birth:</label>
+
+              <label>
+                Date of Birth:
+              </label>
 
               <input
                 type="date"
                 className="form-control"
-                value={userDob ?? ''}
+                value={
+                  userDob ?? ''
+                }
                 onChange={(e) =>
-                  setUserDob(e.target.value)
+                  setUserDob(
+                    e.target.value
+                  )
                 }
               />
+
             </div>
 
+            {/* Mobile */}
             <div className="mb-3">
-              <label>Mobile No:</label>
+
+              <label>
+                Mobile No:
+              </label>
 
               <input
                 type="text"
                 className="form-control"
-                value={userMobile ?? ''}
+                value={
+                  userMobile ?? ''
+                }
                 onChange={(e) =>
-                  setUserMobile(e.target.value)
+                  setUserMobile(
+                    e.target.value
+                  )
                 }
               />
+
             </div>
 
+            {/* Email */}
             <div className="mb-3">
-              <label>Email (cannot edit):</label>
+
+              <label>
+                Email
+                (cannot edit):
+              </label>
 
               <input
                 type="email"
                 className="form-control"
-                value={userEmail ?? ''}
+                value={
+                  userEmail ?? ''
+                }
                 disabled
               />
+
             </div>
 
+            {/* Save Button */}
             <button
               className="btn btn-primary"
-              onClick={handleSaveProfile}
+              onClick={
+                handleSaveProfile
+              }
             >
               Save Profile
             </button>
